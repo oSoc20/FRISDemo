@@ -23,6 +23,11 @@ public class SoapRequest {
         // empty
     }
 
+    /**
+     * This method will return write in a CSV file the data needed for analysis.
+     *
+     * @param number the number of project to fetch from the SOAP API
+     */
     public static void getProjects(int number){
         final String XML = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:fris=\"http://fris.ewi.be/\" xmlns:crit=\"http://fris.ewi.be/criteria\"><soapenv:Header/><soapenv:Body><fris:getProjects>" +
                 "<criteria>" +
