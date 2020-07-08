@@ -1,6 +1,5 @@
 package data;
 
-import entities.Abstract;
 import entities.Project;
 import utils.ProjectDataExtractor;
 import utils.Writer;
@@ -10,7 +9,6 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
