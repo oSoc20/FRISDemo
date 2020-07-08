@@ -6,6 +6,9 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+/**
+ * Class to write data to a file
+ */
 public class Writer {
     //European countries use ";" as
     //CSV separator because "," is their digit separator
@@ -13,6 +16,11 @@ public class Writer {
 
     private Writer(){}
 
+    /**
+     * Method to write a List of Projects to a CSV file
+     *
+     * @param projects a list of Projects
+     */
     public static void writeToCSV(List<Project> projects){
         try(
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("projects.csv"), StandardCharsets.UTF_8))
@@ -37,6 +45,11 @@ public class Writer {
 
     }
 
+    /**
+     * Creates the titles for the columns of the CSV projects file
+     *
+     * @return a String with the titles comma separated
+     */
     private static String headings() {
         StringBuilder header = new StringBuilder();
         header.append("project_id");
