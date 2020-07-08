@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MainVerticle extends AbstractVerticle {
-    //private static final String WEB_SOCKET_LOCATION = "/api/*";
     private static final String HTTP_PORT = "http.port";
     private static final int HTTP_FALLBACK_PORT = 8001;
     private static final Logger LOGGER = Logger.getLogger(MainVerticle.class.getSimpleName());
