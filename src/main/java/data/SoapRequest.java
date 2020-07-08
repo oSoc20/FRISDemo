@@ -13,13 +13,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * A class to send request to the FRIS SOAP API
+ */
 public class SoapRequest {
     private static final String URL_FRIS = "https://frisr4.researchportal.be/ws/ProjectServiceFRIS?wsdl";
     private static final String CONTENT_TYPE = "text/xml;charset=UTF-8";
     private static final Logger LOGGER = Logger.getLogger(SoapRequest.class.getSimpleName());
 
 
-    public SoapRequest() {
+    private SoapRequest() {
         // empty
     }
 
@@ -37,34 +40,67 @@ public class SoapRequest {
                 "</criteria>"+
                 "</fris:getProjects></soapenv:Body></soapenv:Envelope>";
         try {
-            URL url = new URL(URL_FRIS);
-            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("Content-Type", CONTENT_TYPE);
-            connection.setDoOutput(true);
-            DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
-            dos.writeBytes(XML);
-            dos.flush();
-            dos.close();
+            HttpsURLConnection connection = getHttpsURLConnection();
+            writeAndCloseOutputstream(XML, connection);
             String responseStatus = connection.getResponseMessage();
             LOGGER.info(responseStatus);
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null){
-                response.append(inputLine);
-            }
-            in.close();
-
-            ArrayList<Project> projects = new ArrayList<>(
-                    ProjectDataExtractor.getProjectData(response.toString())
-            );
+            ArrayList<Project> projects = getProjects(connection);
 
             Writer.writeToCSV(projects);
 
         } catch (IOException e) {
             LOGGER.severe(Arrays.toString(e.getStackTrace()));
         }
+    }
+
+    /**
+     * Method to get all projects from the SOAP API response
+     *
+     * @param connection the connection to the SOAP API
+     * @return a List of all the projects
+     * @throws IOException in case of BufferReader errors
+     */
+    private static ArrayList<Project> getProjects(HttpsURLConnection connection) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null){
+            response.append(inputLine);
+        }
+        in.close();
+
+        return new ArrayList<>(
+                ProjectDataExtractor.getProjectData(response.toString())
+        );
+    }
+
+    /**
+     * Method to write the response from the API
+     *
+     * @param xml the xml in string format from the SOAP API response
+     * @param connection the connection to the API
+     * @throws IOException in case of DataOutputStream errors
+     */
+    private static void writeAndCloseOutputstream(String xml, HttpsURLConnection connection) throws IOException {
+        DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
+        dos.writeBytes(xml);
+        dos.flush();
+        dos.close();
+    }
+
+    /**
+     * Method to get the connection from the SOAP API
+     *
+     * @return the connection to the API
+     * @throws IOException in case of HttpsURLConnection errors
+     */
+    private static HttpsURLConnection getHttpsURLConnection() throws IOException {
+        URL url = new URL(URL_FRIS);
+        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Content-Type", CONTENT_TYPE);
+        connection.setDoOutput(true);
+        return connection;
     }
 }
