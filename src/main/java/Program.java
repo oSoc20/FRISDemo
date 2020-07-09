@@ -1,4 +1,4 @@
-import data.SoapRequest;
+import data.SoapRepository;
 import entities.Project;
 import io.vertx.core.Vertx;
 import utils.Writer;
@@ -16,7 +16,7 @@ public class Program {
     }
 
     private void writeCSVWithProjectsData(int numberOfProjects){
-        ArrayList<Project> projects = new ArrayList<>(SoapRequest.getProjects(numberOfProjects));
+        ArrayList<Project> projects = new ArrayList<>(SoapRepository.getProjects(numberOfProjects));
         Writer.writeToCSV(projects);
     }
 }

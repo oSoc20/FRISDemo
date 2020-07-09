@@ -1,9 +1,10 @@
 package utils;
 
-import data.SoapRequest;
+import data.SoapRepository;
 import entities.Abstract;
 import entities.DataProvider;
 import entities.Project;
+import entities.Title;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.regex.Pattern;
  * Utility class for data extraction from SOAP API xml responses
  */
 public class ProjectDataExtractor {
-    private static final Logger LOGGER = Logger.getLogger(SoapRequest.class.getSimpleName());
+    private static final Logger LOGGER = Logger.getLogger(SoapRepository.class.getSimpleName());
 
     private ProjectDataExtractor(){}
 
@@ -34,6 +35,7 @@ public class ProjectDataExtractor {
         projectsDataString.forEach(s -> {
             projects.add(new Project(
                     getProjectUUID(s),
+                    getTitle(s),
                     getKeywords(s, "en"),
                     getKeywords(s, "nl"),
                     getAbstract(s),
@@ -44,6 +46,29 @@ public class ProjectDataExtractor {
         });
 
         return projects;
+    }
+
+    private static Title getTitle(String text){
+        Matcher matcher = getMatcher(text, "<fris:name id=", "</fris:name>");
+        if (matcher.find()){
+            return new Title(
+                    getTitle(matcher.group(1), "en"),
+                    getTitle(matcher.group(1), "nl")
+            );
+        }
+        return null;
+    }
+
+    private static String getTitle(String text, String language){
+        Matcher matcher = getMatcher(text, "fris:text locale=\""+language+"\">", "</fris:text>");
+        if (matcher.find()){
+            return matcher.group(1);
+        }
+
+        else {
+            LOGGER.severe("No Dutch abstract found");
+            return null;
+        }
     }
 
     /**
@@ -204,7 +229,6 @@ public class ProjectDataExtractor {
            LOGGER.severe("No id found");
            return 0;
         }
-
     }
 
     /**

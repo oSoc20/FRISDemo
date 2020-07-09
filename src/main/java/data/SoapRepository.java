@@ -2,7 +2,6 @@ package data;
 
 import entities.Project;
 import utils.ProjectDataExtractor;
-import utils.Writer;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
@@ -16,13 +15,13 @@ import java.util.logging.Logger;
 /**
  * A class to send request to the FRIS SOAP API
  */
-public class SoapRequest {
+public class SoapRepository {
     private static final String URL_FRIS = "https://frisr4.researchportal.be/ws/ProjectServiceFRIS?wsdl";
     private static final String CONTENT_TYPE = "text/xml;charset=UTF-8";
-    private static final Logger LOGGER = Logger.getLogger(SoapRequest.class.getSimpleName());
+    private static final Logger LOGGER = Logger.getLogger(SoapRepository.class.getSimpleName());
 
 
-    private SoapRequest() {
+    private SoapRepository() {
         // empty
     }
 

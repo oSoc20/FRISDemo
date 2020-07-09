@@ -1,8 +1,6 @@
 package web;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import data.SoapRequest;
+import data.SoapRepository;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.RoutingContext;
@@ -34,7 +32,7 @@ public class DataRoutes {
         }
 
         else {
-            sendJson(routingContext.response().setStatusCode(202), SoapRequest.getProjects(nOfProjects));
+            sendJson(routingContext.response().setStatusCode(202), SoapRepository.getProjects(nOfProjects));
         }
     }
 

@@ -54,6 +54,10 @@ public class Writer {
         StringBuilder header = new StringBuilder();
         header.append("project_id");
         header.append(CSV_SEPARATOR);
+        header.append("english_title");
+        header.append(CSV_SEPARATOR);
+        header.append("dutch_title");
+        header.append(CSV_SEPARATOR);
         header.append("english_keywords");
         header.append(CSV_SEPARATOR);
         header.append("dutch_keywords");
