@@ -11,6 +11,8 @@ public class Project {
     private DataProvider dataProvider;
     private String doi;
 
+    public Project(){}
+
     public Project(UUID id, List<String> englishKeywords, List<String> dutchKeywords, Abstract projectAbstract, DataProvider dataProvider, String doi) {
         this.id = id;
         this.englishKeywords = englishKeywords;

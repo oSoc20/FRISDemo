@@ -9,6 +9,8 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -25,11 +27,11 @@ public class SoapRequest {
     }
 
     /**
-     * This method will return write in a CSV file the data needed for analysis.
+     * This method will return all the projects data.
      *
      * @param number the number of project to fetch from the SOAP API
      */
-    public static void getProjects(int number){
+    public static List<Project> getProjects(int number){
         final String XML = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:fris=\"http://fris.ewi.be/\" xmlns:crit=\"http://fris.ewi.be/criteria\"><soapenv:Header/><soapenv:Body><fris:getProjects>" +
                 "<criteria>" +
                 "<crit:window>" +
@@ -43,12 +45,11 @@ public class SoapRequest {
             String responseStatus = connection.getResponseMessage();
             LOGGER.info(responseStatus);
 
-            ArrayList<Project> projects = getProjects(connection);
-
-            Writer.writeToCSV(projects);
+            return getProjects(connection);
 
         } catch (IOException e) {
             LOGGER.severe(Arrays.toString(e.getStackTrace()));
+            return Collections.singletonList(new Project());
         }
     }
 
@@ -59,7 +60,7 @@ public class SoapRequest {
      * @return a List of all the projects
      * @throws IOException in case of BufferReader errors
      */
-    private static ArrayList<Project> getProjects(HttpsURLConnection connection) throws IOException {
+    private static List<Project> getProjects(HttpsURLConnection connection) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
         StringBuilder response = new StringBuilder();

@@ -1,5 +1,8 @@
 package web;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import data.SoapRequest;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.RoutingContext;
@@ -8,6 +11,9 @@ import java.util.logging.Logger;
 
 public class DataRoutes {
     private static final Logger LOGGER = Logger.getLogger(DataRoutes.class.getSimpleName());
+
+    DataRoutes(){}
+
 
     public void returnTestResponse(RoutingContext routingContext) {
         LOGGER.info("Test route called");
@@ -28,8 +34,7 @@ public class DataRoutes {
         }
 
         else {
-            //TODO
-            sendJson(routingContext.response().setStatusCode(202), "VALUE = "+nOfProjects+"; We are building the route. Hang on ;)");
+            sendJson(routingContext.response().setStatusCode(202), SoapRequest.getProjects(nOfProjects));
         }
     }
 
