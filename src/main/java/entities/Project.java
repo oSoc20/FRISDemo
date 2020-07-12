@@ -61,6 +61,10 @@ public class Project {
         return doi;
     }
 
+    public boolean isEmpty(){
+        return id == null;
+    }
+
     public String toStringCSV(){
         return id +
                 "," + title.toStringCSV() +

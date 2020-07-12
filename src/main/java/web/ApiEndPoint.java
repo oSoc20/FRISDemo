@@ -15,7 +15,12 @@ public class ApiEndPoint {
         /*
          * Get route for a number N of projects
          */
-        router.get("/api/projects/:number").handler(dr::getProjects);
+        router.get("/api/projects/size/:number").handler(dr::getProjects);
+
+        /*
+         * Get route for a project using a UUID
+         */
+        router.get("/api/projects/:uuid").handler(dr::getProject);
 
         /*
          * Create routes for the API
