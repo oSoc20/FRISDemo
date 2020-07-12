@@ -6,10 +6,7 @@ import utils.ProjectDataExtractor;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -23,6 +20,46 @@ public class SoapRepository {
 
     private SoapRepository() {
         // empty
+    }
+
+    /**
+     * This method will return a project data identified by a UUID
+     *
+     * @param uuid the id as String identifying a project
+     * @return a Project
+     */
+    public static Project getProject(String uuid){
+        return getProject(UUID.fromString(uuid));
+    }
+
+    /**
+     * This method will return a project data identified by a UUID
+     *
+     * @param uuid the id as UUID identifying a project
+     * @return a Project
+     */
+    public static Project getProject(UUID uuid){
+        final String XML = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:fris=\"http://fris.ewi.be/\" xmlns:crit=\"http://fris.ewi.be/criteria\"><soapenv:Header/><soapenv:Body><fris:getProjects>" +
+                "<criteria>" +
+                "<crit:uuids>" +
+                "<crit:identifier>"+uuid+"</crit:identifier>" +
+                "</crit:uuids>" +
+                "</criteria>"+
+                "</fris:getProjects></soapenv:Body></soapenv:Envelope>";
+
+        try {
+            HttpsURLConnection connection = getHttpsURLConnection();
+            writeAndCloseOutputstream(XML, connection);
+            String responseStatus = connection.getResponseMessage();
+            LOGGER.info(responseStatus);
+
+            return getProjects(connection).get(0);
+
+        } catch (IOException e) {
+            LOGGER.severe(Arrays.toString(e.getStackTrace()));
+            return new Project();
+        }
+
     }
 
     /**
