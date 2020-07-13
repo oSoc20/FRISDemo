@@ -14,6 +14,11 @@ public class DataRoutes {
 
     DataRoutes(){}
 
+    public void returnTestResponse(RoutingContext routingContext) {
+        LOGGER.info("Test route called");
+        sendJson(routingContext.response().setStatusCode(200), "UhUH test successful");
+    }
+
     public void getProject(RoutingContext routingContext) {
         LOGGER.info("Get projects route called");
         UUID uuid = UUID.fromString(routingContext.request().getParam("uuid"));
@@ -28,23 +33,31 @@ public class DataRoutes {
 
     }
 
-
-    public void returnTestResponse(RoutingContext routingContext) {
-        LOGGER.info("Test route called");
-        sendJson(routingContext.response().setStatusCode(200), "UhUH test successful");
-    }
-
     public void getProjects(RoutingContext routingContext) {
         LOGGER.info("Get projects route called");
         int nOfProjects = getNumber(routingContext);
 
         if (nOfProjects < 1){
-            sendJson(routingContext.response().setStatusCode(400), "The value is not valid for /api/projects/");
+            sendJson(routingContext.response().setStatusCode(400), "The value is not valid for /api/projects/size/");
         }
 
         else {
             sendJson(routingContext.response().setStatusCode(202), SoapRepository.getProjects(nOfProjects));
         }
+    }
+
+    public void getPublications(RoutingContext routingContext) {
+        LOGGER.info("Get publications route called");
+        int nOfPublications = getNumber(routingContext);
+
+        if (nOfPublications < 1){
+            sendJson(routingContext.response().setStatusCode(400), "The value is not valid for /api/publications/size/");
+        }
+
+        else {
+            sendJson(routingContext.response().setStatusCode(202), SoapRepository.getPublications(nOfPublications));
+        }
+
     }
 
     private void sendJson(HttpServerResponse response, Object object){

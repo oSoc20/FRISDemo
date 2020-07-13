@@ -2,58 +2,58 @@ package utils;
 
 import entities.Abstract;
 import entities.DataProvider;
-import entities.Project;
+import entities.Publication;
 import entities.Title;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-/**
- * Utility class for data extraction from SOAP API xml responses
- */
-public class ProjectDataExtractor {
-    private static final Logger LOGGER = Logger.getLogger(ProjectDataExtractor.class.getSimpleName());
+import static utils.XMLDataExtractor.getDoi;
 
-    private ProjectDataExtractor(){}
+public class PublicationsDataExtractor {
+    private static final Logger LOGGER = Logger.getLogger(PublicationsDataExtractor.class.getSimpleName());
 
-    /**
-     * This method will create a List of Projects containing all the data extracted from the API response
-     *
-     * @param xmlString the String response of the SOAP API
-     * @return a List of Projects
-     */
-    public static List<Project> getProjectData (String xmlString){
-        ArrayList<Project> projects = new ArrayList<>();
+    private PublicationsDataExtractor(){};
 
-        ArrayList<String> projectsDataString = new ArrayList<>(
-                XMLDataExtractor.getListFromXmlData(xmlString, "<fris:project ", "</fris:project>")
+    public static List<Publication> getPublicationData(String xmlString){
+        ArrayList<Publication> publications = new ArrayList<>();
+
+        ArrayList<String> publicationDataString = new ArrayList<>(
+                XMLDataExtractor.getListFromXmlData(xmlString, "<fris:journalContribution ", "</fris:journalContribution>")
         );
 
-        projectsDataString.forEach(s -> projects.add(new Project(
+        publicationDataString.forEach(s -> publications.add(new Publication(
                 getProjectUUID(s),
-                getTitle(s),
                 getKeywords(s, "en"),
                 getKeywords(s, "nl"),
                 getAbstract(s),
-                getDataProvider(s)
+                getDataProvider(s),
+                getTitle(s),
+                getDoi(s)
                 )
         ));
 
-        return projects;
+        return publications;
+    }
+
+    private static String getDoi(String text){
+        return XMLDataExtractor.getDoi(text, "<fris:source id=\"295054011\" authorityScheme=\"Identifier Authority Type\" authority=\"DOI\">", "</fris:source>");
+    }
+
+    private static UUID getProjectUUID(String text) {
+        return XMLDataExtractor.getUUID(text);
     }
 
     /**
-     * Get title of a project
+     * Get title of a publication
      *
      * @param text the String from the SOAP API xml response
-     * @return the title of the project
+     * @return the title of the publication
      */
     private static Title getTitle(String text){
-        return XMLDataExtractor.getTitle(text, "<fris:name id=", "</fris:name>");
+        return XMLDataExtractor.getTitle(text, "<fris:title id=", "</fris:title>");
     }
 
     /**
@@ -76,16 +76,6 @@ public class ProjectDataExtractor {
      */
     private static DataProvider getDataProvider(String text) {
         return XMLDataExtractor.getDataProvider(text);
-    }
-
-    /**
-     * Get the UUID of a project
-     *
-     * @param text the String from the SOAP API xml response
-     * @return return the UUID of a project
-     */
-    private static UUID getProjectUUID(String text) {
-        return XMLDataExtractor.getUUID(text);
     }
 
     /**

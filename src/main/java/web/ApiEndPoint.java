@@ -5,6 +5,9 @@ import io.vertx.ext.web.Router;
 public class ApiEndPoint {
     private final DataRoutes dr = new DataRoutes();
 
+    /*
+     * Create routes for the API
+     */
     void installRoutes(Router router){
 
         /*
@@ -13,18 +16,18 @@ public class ApiEndPoint {
         router.get("/api/test").handler(dr::returnTestResponse);
 
         /*
-         * Get route for a number N of projects
+         * Get a number N of projects
          */
         router.get("/api/projects/size/:number").handler(dr::getProjects);
 
         /*
-         * Get route for a project using a UUID
+         * Get a project from its UUID
          */
         router.get("/api/projects/:uuid").handler(dr::getProject);
 
         /*
-         * Create routes for the API
-         *
+         * Get a number N of publications
          */
+        router.get("/api/publications/size/:number").handler(dr::getPublications);
     }
 }

@@ -1,7 +1,9 @@
 package data;
 
 import entities.Project;
+import entities.Publication;
 import utils.ProjectDataExtractor;
+import utils.PublicationsDataExtractor;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
@@ -13,13 +15,70 @@ import java.util.logging.Logger;
  * A class to send request to the FRIS SOAP API
  */
 public class SoapRepository {
-    private static final String URL_FRIS = "https://frisr4.researchportal.be/ws/ProjectServiceFRIS?wsdl";
+    private static final String URL_FRIS_PROJECTS = "https://frisr4.researchportal.be/ws/ProjectServiceFRIS?wsdl";
+    private static final String URL_FRIS_PUBLICATIONS = "https://frisr4.researchportal.be/ws/ResearchOutputServiceFRIS?wsdl";
     private static final String CONTENT_TYPE = "text/xml;charset=UTF-8";
     private static final Logger LOGGER = Logger.getLogger(SoapRepository.class.getSimpleName());
 
 
     private SoapRepository() {
         // empty
+    }
+
+    /**
+     * Get publications data from SOAP API
+     *
+     * @param number the number of publications to get
+     * @return a List of the requested publications' data
+     */
+    public static List<Publication> getPublications(int number){
+        LOGGER.info("requesting publications");
+        final String XML = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:fris=\"http://fris.ewi.be/\" xmlns:crit=\"http://fris.ewi.be/criteria\">\n" +
+                "<soapenv:Header/>" +
+                "<soapenv:Body>" +
+                "<fris:getResearchOutput>" +
+                "<criteria>" +
+                "<crit:window>" +
+                "<crit:pageSize>" +number+ "</crit:pageSize>" +
+                "</crit:window>" +
+                "</criteria>" +
+                "</fris:getResearchOutput>" +
+                "</soapenv:Body>" +
+                "</soapenv:Envelope>";
+        try {
+            HttpsURLConnection connection = getHttpsURLConnection(URL_FRIS_PUBLICATIONS);
+            writeAndCloseOutputstream(XML, connection);
+            String responseStatus = connection.getResponseMessage();
+            LOGGER.info(responseStatus);
+
+            return getPublications(connection);
+
+        } catch (IOException e) {
+            LOGGER.severe(Arrays.toString(e.getStackTrace()));
+            return Collections.singletonList(new Publication());
+        }
+    }
+
+    /**
+     * Method to build a List of publications from the SOAP response
+     *
+     * @param connection the connection to the SOAP API
+     * @return a list of Publication
+     * @throws IOException throws if something fails for BufferedReader
+     */
+    private static List<Publication> getPublications(HttpsURLConnection connection) throws IOException{
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null){
+            response.append(inputLine);
+        }
+        in.close();
+
+        return new ArrayList<>(
+                PublicationsDataExtractor.getPublicationData(response.toString())
+        );
     }
 
     /**
@@ -48,7 +107,7 @@ public class SoapRepository {
                 "</fris:getProjects></soapenv:Body></soapenv:Envelope>";
 
         try {
-            HttpsURLConnection connection = getHttpsURLConnection();
+            HttpsURLConnection connection = getHttpsURLConnection(URL_FRIS_PROJECTS);
             writeAndCloseOutputstream(XML, connection);
             String responseStatus = connection.getResponseMessage();
             LOGGER.info(responseStatus);
@@ -76,7 +135,7 @@ public class SoapRepository {
                 "</criteria>"+
                 "</fris:getProjects></soapenv:Body></soapenv:Envelope>";
         try {
-            HttpsURLConnection connection = getHttpsURLConnection();
+            HttpsURLConnection connection = getHttpsURLConnection(URL_FRIS_PROJECTS);
             writeAndCloseOutputstream(XML, connection);
             String responseStatus = connection.getResponseMessage();
             LOGGER.info(responseStatus);
@@ -130,8 +189,8 @@ public class SoapRepository {
      * @return the connection to the API
      * @throws IOException in case of HttpsURLConnection errors
      */
-    private static HttpsURLConnection getHttpsURLConnection() throws IOException {
-        URL url = new URL(URL_FRIS);
+    private static HttpsURLConnection getHttpsURLConnection(String frisUrl) throws IOException {
+        URL url = new URL(frisUrl);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Content-Type", CONTENT_TYPE);
