@@ -21,23 +21,43 @@ public class ApiEndPoint {
         router.get("/api/test").handler(dataRoutes::returnTestResponse);
 
         /*
-         * Get a number N of projects
+         * Get a number N of projects as JSON
          */
         router.get("/api/projects/size/:number").handler(dataRoutes::getProjects);
 
         /*
-         * Get a project from its UUID
+         * Get a project from its UUID as JSON
          */
         router.get("/api/projects/:uuid").handler(dataRoutes::getProject);
 
         /*
-         * Get a number N of publications
+         * Get a number N of publications as JSON
          */
         router.get("/api/publications/size/:number").handler(dataRoutes::getPublications);
 
         /*
-         * Get a publication from its UUID
+         * Get a publication from its UUID as JSON
          */
         router.get("/api/publications/:uuid").handler(dataRoutes::getPublication);
+
+        /*
+         * Get a number N of projects as XML
+         */
+        router.get("/api/projects/xml/size/:number").handler(dataRoutes::getProjectsAsXml);
+
+        /*
+         * Get a project from its UUID as XML
+         */
+        router.get("/api/projects/xml/:uuid").handler(dataRoutes::getProjectAsXml);
+
+        /*
+         * Get a number N of publications as XML
+         */
+        router.get("/api/publications/size/:number").handler(dataRoutes::getPublicationsAsXml);
+
+        /*
+         * Get a publication from its UUID as XML
+         */
+        router.get("/api/publications/xml/:uuid").handler(dataRoutes::getPublicationAsXml);
     }
 }

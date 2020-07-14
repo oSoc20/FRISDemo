@@ -121,6 +121,12 @@ public class SoapRepository {
 
     }
 
+    /**
+     * Get a publication searching by its uuid
+     *
+     * @param uuid the uuid of a publication
+     * @return a Publication
+     */
     public static Publication getPublication(UUID uuid) {
         final String XML = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:fris=\"http://fris.ewi.be/\" xmlns:crit=\"http://fris.ewi.be/criteria\">" +
                 "<soapenv:Header/>" +

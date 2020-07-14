@@ -57,8 +57,8 @@ public class Publication {
 
     @Override
     public String toString() {
-        return "Publication{" +
-                "id=" + id +
+        return "publication{" +
+                "uuid=" + id +
                 ", englishKeywords=" + englishKeywords +
                 ", dutchKeywords=" + dutchKeywords +
                 ", publicationAbstract=" + projectAbstract +

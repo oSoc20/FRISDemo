@@ -72,8 +72,8 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project{" +
-                "id=" + id +
+        return "project{" +
+                "uuid=" + id +
                 "title="+ title +
                 ", englishKeywords=" + englishKeywords +
                 ", dutchKeywords=" + dutchKeywords +
