@@ -2,6 +2,7 @@ package web;
 
 import data.SoapRepository;
 import entities.Project;
+import entities.Publication;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.RoutingContext;
@@ -45,6 +46,19 @@ public class DataRoutes {
             sendJson(routingContext.response().setStatusCode(200), project);
         }
 
+    }
+
+    public void getPublication(RoutingContext routingContext) {
+        LOGGER.info("Get publication route called");
+        UUID uuid = UUID.fromString(routingContext.request().getParam("uuid"));
+        Publication publication = SoapRepository.getPublication(uuid);
+
+        if (publication.isEmpty()){
+            sendJson(routingContext.response().setStatusCode(404), "Publication not found");
+        }
+        else {
+            sendJson(routingContext.response().setStatusCode(200), publication);
+        }
     }
 
     /**
@@ -91,7 +105,7 @@ public class DataRoutes {
      * @param object the object to send to the client
      */
     private void sendJson(HttpServerResponse response, Object object){
-        response.putHeader("Content-Type", "application/json;charset=iso-8859-1")
+        response.putHeader("Content-Type", "application/json;charset=utf-8")
                 .end(Json.encodePrettily(object));
     }
 

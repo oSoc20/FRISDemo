@@ -61,7 +61,7 @@ public class Publication {
                 "id=" + id +
                 ", englishKeywords=" + englishKeywords +
                 ", dutchKeywords=" + dutchKeywords +
-                ", projectAbstract=" + projectAbstract +
+                ", publicationAbstract=" + projectAbstract +
                 ", dataProvider=" + dataProvider +
                 ", title=" + title +
                 ", doi='" + doi + '\'' +
@@ -84,5 +84,9 @@ public class Publication {
         values.forEach(v -> result.append(v).append(";"));
 
         return result;
+    }
+
+    public boolean isEmpty() {
+        return id == null;
     }
 }

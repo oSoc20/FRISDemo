@@ -121,6 +121,31 @@ public class SoapRepository {
 
     }
 
+    public static Publication getPublication(UUID uuid) {
+        final String XML = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:fris=\"http://fris.ewi.be/\" xmlns:crit=\"http://fris.ewi.be/criteria\">" +
+                "<soapenv:Header/>" +
+                "<soapenv:Body>" +
+                "<fris:getResearchOutput>" +
+                "<crit:uuids>" +
+                "<crit:identifier>"+uuid+"</crit:identifier>" +
+                "</crit:uuids>" +
+                "</fris:getResearchOutput>" +
+                "</soapenv:Body>" +
+                "</soapenv:Envelope>";
+        try {
+            HttpsURLConnection connection = getHttpsURLConnection(URL_FRIS_PUBLICATIONS);
+            writeAndCloseOutputstream(XML, connection);
+            String responseStatus = connection.getResponseMessage();
+            LOGGER.info(responseStatus);
+
+            return getPublications(connection).get(0);
+
+        } catch (IOException e) {
+            LOGGER.severe(Arrays.toString(e.getStackTrace()));
+            return new Publication();
+        }
+    }
+
     /**
      * This method will return all the projects data.
      *
