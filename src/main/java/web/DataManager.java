@@ -5,6 +5,9 @@ import entities.Project;
 
 import java.util.List;
 
+/**
+ * WIP
+ */
 public class DataManager {
 
     public static List<Project> getProjects(int number){

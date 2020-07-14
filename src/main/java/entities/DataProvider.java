@@ -1,5 +1,8 @@
 package entities;
 
+/**
+ * Data Provider's entity that contains its id and name
+ */
 public class DataProvider {
     private String id;
     private String name;

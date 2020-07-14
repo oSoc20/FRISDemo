@@ -10,13 +10,20 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-import static utils.XMLDataExtractor.getDoi;
-
+/**
+ * Class to extract publication's data from SOAP API response
+ */
 public class PublicationsDataExtractor {
     private static final Logger LOGGER = Logger.getLogger(PublicationsDataExtractor.class.getSimpleName());
 
-    private PublicationsDataExtractor(){};
+    private PublicationsDataExtractor(){}
 
+    /**
+     * Extract the publication's data from the XML response from SOAP API
+     *
+     * @param xmlString the XML response as String
+     * @return a List of publications
+     */
     public static List<Publication> getPublicationData(String xmlString){
         ArrayList<Publication> publications = new ArrayList<>();
 
@@ -38,10 +45,22 @@ public class PublicationsDataExtractor {
         return publications;
     }
 
+    /**
+     * Extract a DOI from XML response as String
+     *
+     * @param text the XML response as String
+     * @return a DOI link
+     */
     private static String getDoi(String text){
         return XMLDataExtractor.getDoi(text, "<fris:source id=\"295054011\" authorityScheme=\"Identifier Authority Type\" authority=\"DOI\">", "</fris:source>");
     }
 
+    /**
+     * Get a publication's UUID
+     *
+     * @param text the XML response as String
+     * @return the UUID of a publication
+     */
     private static UUID getProjectUUID(String text) {
         return XMLDataExtractor.getUUID(text);
     }

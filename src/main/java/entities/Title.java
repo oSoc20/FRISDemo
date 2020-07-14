@@ -1,5 +1,8 @@
 package entities;
 
+/**
+ * Title entity that contains english and dutch titles
+ */
 public class Title {
     private String englishTitle;
     private String dutchTitle;

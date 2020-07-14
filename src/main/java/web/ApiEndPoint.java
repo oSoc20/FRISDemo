@@ -2,11 +2,16 @@ package web;
 
 import io.vertx.ext.web.Router;
 
+/**
+ * Class to create endpoints for a http server
+ */
 public class ApiEndPoint {
     private final DataRoutes dr = new DataRoutes();
 
-    /*
+    /**
      * Create routes for the API
+     *
+     * @param router a router {@link Router}
      */
     void installRoutes(Router router){
 

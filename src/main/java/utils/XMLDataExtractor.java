@@ -177,7 +177,7 @@ public class XMLDataExtractor {
         }
 
         else {
-            LOGGER.severe("No " + locale + " abstract found");
+            LOGGER.severe(() -> String.format("No %s abstract found", locale));
             return null;
         }
     }

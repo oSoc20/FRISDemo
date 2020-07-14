@@ -1,5 +1,8 @@
 package entities;
 
+/**
+ * Abstract entity that contains its id and english and dutch version
+ */
 public class Abstract {
     private int id;
     private String enAbstract;

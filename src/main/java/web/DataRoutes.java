@@ -9,16 +9,30 @@ import io.vertx.ext.web.RoutingContext;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+/**
+ * Class to set the behaviour of each route
+ *
+ */
 public class DataRoutes {
     private static final Logger LOGGER = Logger.getLogger(DataRoutes.class.getSimpleName());
 
     DataRoutes(){}
 
+    /**
+     * Method for the behaviour of the test route
+     *
+     * @param routingContext the request context
+     */
     public void returnTestResponse(RoutingContext routingContext) {
         LOGGER.info("Test route called");
         sendJson(routingContext.response().setStatusCode(200), "UhUH test successful");
     }
 
+    /**
+     * Method to return a single project as JSON data identified by its UUID
+     *
+     * @param routingContext the request context
+     */
     public void getProject(RoutingContext routingContext) {
         LOGGER.info("Get projects route called");
         UUID uuid = UUID.fromString(routingContext.request().getParam("uuid"));
@@ -33,6 +47,11 @@ public class DataRoutes {
 
     }
 
+    /**
+     * Method to return multiple projects as JSON data
+     *
+     * @param routingContext the request context
+     */
     public void getProjects(RoutingContext routingContext) {
         LOGGER.info("Get projects route called");
         int nOfProjects = getNumber(routingContext);
@@ -46,6 +65,11 @@ public class DataRoutes {
         }
     }
 
+    /**
+     * Method to return multiple publications as JSON data
+     *
+     * @param routingContext the request context
+     */
     public void getPublications(RoutingContext routingContext) {
         LOGGER.info("Get publications route called");
         int nOfPublications = getNumber(routingContext);
@@ -60,11 +84,23 @@ public class DataRoutes {
 
     }
 
+    /**
+     * Method to send the JSON data as response to the client
+     *
+     * @param response the response to send to the client
+     * @param object the object to send to the client
+     */
     private void sendJson(HttpServerResponse response, Object object){
-        response.putHeader("Content-Type", "application/json;charset=utf-8")
+        response.putHeader("Content-Type", "application/json;charset=iso-8859-1")
                 .end(Json.encodePrettily(object));
     }
 
+    /**
+     * Method to safely extract a URL parameter as integer
+     *
+     * @param routingContext the request context
+     * @return the parameter as integer
+     */
     private int getNumber(RoutingContext routingContext) {
         String n = routingContext.request().getParam("number");
         try {

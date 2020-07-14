@@ -3,6 +3,9 @@ package entities;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Project entity that contains all publication's core data for data analysis
+ */
 public class Project {
     private UUID id;
     private List<String> englishKeywords;
