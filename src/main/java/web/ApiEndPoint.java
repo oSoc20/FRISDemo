@@ -53,7 +53,7 @@ public class ApiEndPoint {
         /*
          * Get a number N of publications as XML
          */
-        router.get("/api/publications/size/:number").handler(dataRoutes::getPublicationsAsXml);
+        router.get("/api/publications/xml/size/:number").handler(dataRoutes::getPublicationsAsXml);
 
         /*
          * Get a publication from its UUID as XML
