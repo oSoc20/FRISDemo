@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Objects;
+
 /**
  * Title entity that contains english and dutch titles
  */
@@ -31,5 +33,19 @@ public class Title {
     public String toStringCSV() {
         return "\"" + englishTitle + "\"" +
                 ",\"" + dutchTitle + "\"";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Title)) return false;
+        Title title = (Title) o;
+        return Objects.equals(englishTitle, title.englishTitle) &&
+                Objects.equals(dutchTitle, title.dutchTitle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(englishTitle, dutchTitle);
     }
 }

@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Objects;
+
 /**
  * Data Provider's entity that contains its id and name
  */
@@ -31,5 +33,18 @@ public class DataProvider {
     public String toStringCSV() {
         return id +
                 ",\"" + name + "\"";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DataProvider)) return false;
+        DataProvider that = (DataProvider) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

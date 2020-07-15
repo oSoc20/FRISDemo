@@ -9,6 +9,7 @@ import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.RoutingContext;
 
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -117,7 +118,7 @@ public class DataRoutes {
         }
 
         else {
-            sendJson(routingContext.response().setStatusCode(202), SoapRepository.getProjects(nOfProjects));
+            sendJson(routingContext.response().setStatusCode(200), SoapRepository.getProjects(nOfProjects));
         }
     }
 
@@ -135,7 +136,7 @@ public class DataRoutes {
         }
 
         else {
-            sendXml(routingContext.response().setStatusCode(202), SoapRepository.getProjects(nOfProjects));
+            sendXml(routingContext.response().setStatusCode(200), SoapRepository.getProjects(nOfProjects));
         }
     }
 
@@ -153,7 +154,7 @@ public class DataRoutes {
         }
 
         else {
-            sendJson(routingContext.response().setStatusCode(202), SoapRepository.getPublications(nOfPublications));
+            sendJson(routingContext.response().setStatusCode(200), SoapRepository.getPublications(nOfPublications));
         }
     }
 
@@ -171,7 +172,7 @@ public class DataRoutes {
         }
 
         else {
-            sendXml(routingContext.response().setStatusCode(202), SoapRepository.getPublications(nOfPublications));
+            sendXml(routingContext.response().setStatusCode(200), SoapRepository.getPublications(nOfPublications));
         }
     }
 
@@ -198,7 +199,7 @@ public class DataRoutes {
             response.putHeader("Content-Type", "application/xhtml+xml")
                     .end(mapper.writeValueAsString(object));
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            LOGGER.severe(Arrays.toString(e.getStackTrace()));
             LOGGER.severe(e.getMessage());
         }
     }

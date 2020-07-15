@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Objects;
+
 /**
  * Abstract entity that contains its id and english and dutch version
  */
@@ -39,6 +41,19 @@ public class Abstract {
         return id +
                 ",\"" + enAbstract + "\"" +
                 ",\"" + nlAbstract + "\"";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Abstract)) return false;
+        Abstract that = (Abstract) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     private String removeUselessCharacters(String text){
