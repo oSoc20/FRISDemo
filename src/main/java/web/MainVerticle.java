@@ -23,9 +23,7 @@ public class MainVerticle extends AbstractVerticle {
     private static final int HTTP_FALLBACK_PORT = 8001;
     private static final Logger LOGGER = Logger.getLogger(MainVerticle.class.getSimpleName());
     private ApiEndPoint apiEndPoint = new ApiEndPoint();
-    // Event Bus
-    private static final String PATH_PUBLICATION = "fris.publication";
-    private static final String PATH_PROJECT = "fris.project";
+
 
     /**
      *  Start the verticle instance.
