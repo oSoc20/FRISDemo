@@ -49,7 +49,7 @@ class PublicationsDataExtractorTest {
 
     @Test
     void getPublicationAbstract(){
-        assertNull(publication.getProjectAbstract());
+        assertNull(publication.getAbstract());
     }
 
     @Test
