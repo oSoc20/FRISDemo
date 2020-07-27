@@ -27,6 +27,9 @@ $frisDemo-theme: mat-light-theme($frisDemo-primary, $frisDemo-accent, $frisDemo-
 @include angular-material-theme($frisDemo-theme);
 
 /* You can add global styles to this file, and also import other style files */
+@import 'assets/sass/now-ui-kit/variables';
+
+$primary-color: black;
 
 body {
   margin: 0;

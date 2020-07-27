@@ -10,3 +10,12 @@
   // color: #3f51b5;
   color: rgba(0, 0, 0, 0.87) !important;
 }
+
+blockquote, mat-select {
+  background-color: rgba(255, 255, 255, 0.70);
+}
+
+blockquote p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
