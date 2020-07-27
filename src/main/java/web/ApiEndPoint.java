@@ -16,6 +16,12 @@ public class ApiEndPoint {
     void installRoutes(Router router){
 
         /*
+         * Route to demo page
+         */
+        router.get("/demo").handler(dataRoutes::getDemoPage);
+
+
+        /*
          * Route to test API responses
          */
         router.get("/api/test").handler(dataRoutes::returnTestResponse);
