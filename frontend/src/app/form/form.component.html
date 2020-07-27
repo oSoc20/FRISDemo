@@ -11,26 +11,17 @@
         </div>
 
         <div class="content">
-          <div fxLayout="column" fxLayoutAlign="space-around center">
+          <div fxLayout="row" fxLayoutAlign="center center" class="form-group">
 
-            <div class="form-group">
-              <input matInput type="text" value="" placeholder="FRIS url...." class="form-control form-class"
-                name="frisUrl" [(ngModel)]="frisUrl" />
+            <mat-form-field appearance="none">
+              <mat-label>Choose an option</mat-label>
+              <mat-select class="form-control form-class" style="margin-left: -18px; margin-top: -3px;">
+                <mat-option value="option1">Option 1</mat-option>
+                <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+                <mat-option value="option3">Option 3</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-              <!-- <mat-form-field appearance="none">
-                <mat-label>FRIS url</mat-label>
-                <input matInput [formControl]="urlFormControl" placeholder="FRIS url...."
-                  class="form-control form-class" style="margin: auto;" [errorStateMatcher]="matcher">
-                <mat-hint>Fill in a valid FRIs url</mat-hint>
-                <mat-error *ngIf="urlFormControl.hasError('email') && !urlFormControl.hasError('required')">
-                  Please enter a valid email address
-                </mat-error>
-                <mat-error *ngIf="urlFormControl.hasError('required')">
-                  Email is <strong>required</strong>
-                </mat-error>
-              </mat-form-field> -->
-
-            </div>
             <!-- <div class="footer text-center">
               <a class="btn btn-primary btn-round btn-lg btn-block" (click)="getKeywords()">Get Keywords</a>
             </div> -->

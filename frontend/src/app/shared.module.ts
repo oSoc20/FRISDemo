@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {  MatFormFieldModule,
   MatInputModule,
-  MatGridListModule
+  MatSelectModule
   } from '@angular/material';
 
 
@@ -14,13 +14,13 @@ import {  MatFormFieldModule,
     CommonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatGridListModule,
+    MatSelectModule,
     FlexLayoutModule
   ],
   exports: [
     MatFormFieldModule,
     MatInputModule,
-    MatGridListModule,
+    MatSelectModule,
     FlexLayoutModule
   ]
 })
