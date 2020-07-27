@@ -1,4 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-form',
@@ -6,27 +17,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
+  response;
+  isValidUrl;
 
-  data: Date = new Date();
-  focus;
-  focus1;
+  reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+  urlFormControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern(this.reg)
+  ]);
+
+  matcher = new MyErrorStateMatcher();
 
   constructor() { }
 
-  ngOnInit() {
-      let body = document.getElementsByTagName('body')[0];
-      body.classList.add('login-page');
+  ngOnInit() { }
 
-      var navbar = document.getElementsByTagName('nav')[0];
-      navbar.classList.add('navbar-transparent');
+  getKeywords() {
   }
-  ngOnDestroy(){
-      var body = document.getElementsByTagName('body')[0];
-      body.classList.remove('login-page');
-
-      var navbar = document.getElementsByTagName('nav')[0];
-      navbar.classList.remove('navbar-transparent');
-  }
-
 
 }

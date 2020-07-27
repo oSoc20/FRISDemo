@@ -1,38 +1,117 @@
 <div class="page-header" filter-color="orange">
   <div class="page-header-image" style="background-image:url(assets/img/login.jpg)"></div>
   <div class="container">
-      <div class="col-md-4 content-center">
-          <div class="card card-login card-plain">
-              <form class="form" method="" action="">
-                  <div class="header header-primary text-center">
-                      <div class="logo-container">
-                          <img src="assets/img/fris.svg" alt="" width="100%">
-                      </div>
-                  </div>
-                  <div class="content">
-                    <div class="col-sm-6 col-lg-4">
-                      <div class="form-group">
-                          <input type="text" value="" placeholder="FRIS url...." class="form-control" />
-                      </div>
-                  </div>
-                    <!-- <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus===true}">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
-                      </div>
-                        <input type="text" class="form-control" placeholder="First Name..." (focus)="focus=true" (blur)="focus=false" >
-                    </div>
-                    <div class="input-group form-group-no-border input-lg" [ngClass]="{'input-group-focus':focus1===true}">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text"><i class="now-ui-icons text_caps-small"></i></span>
-                      </div>
-                        <input type="text" placeholder="Last Name..." class="form-control" (focus)="focus1=true" (blur)="focus1=false"/>
-                    </div> -->
-                  </div>
-                  <div class="footer text-center">
-                      <a href="#pablo" class="btn btn-primary btn-round btn-lg btn-block">Get Keywords</a>
-                  </div>
-              </form>
+    <div class="col-md-4 content-center">
+      <div class="card card-login card-plain">
+        <!-- <form class="form" method="" action=""> -->
+
+        <div class="header header-primary text-center">
+          <div class="logo-container">
+            <img src="assets/img/fris.svg" alt="" width="100%">
           </div>
+        </div>
+
+        <div class="content">
+          <!-- <div class="col-sm-6 col-lg-4"> -->
+            <div fxLayout="column" fxLayoutAlign="space-around center" >
+
+            <div class="form-group">
+              <!-- <input matInput type="text" value="" placeholder="FRIS url...." class="form-control form-class" name="frisUrl" [(ngModel)]="frisUrl" /> -->
+
+              <mat-form-field appearance="none">
+                <mat-label>FRIS url</mat-label>
+                <input matInput [formControl]="urlFormControl" placeholder="FRIS url...."
+                  class="form-control form-class" style="margin: auto;" [errorStateMatcher]="matcher">
+                <mat-hint>Fill in a valid FRIs url</mat-hint>
+                <mat-error *ngIf="urlFormControl.hasError('email') && !urlFormControl.hasError('required')">
+                  Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="urlFormControl.hasError('required')">
+                  Email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+            <div class="footer text-center">
+              <a class="btn btn-primary btn-round btn-lg btn-block" (click)="getKeywords()">Get Keywords</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- </form> -->
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <blockquote>
+            <p class="blockquote blockquote-primary">
+              "I will be the leader of a company that ends up being worth billions of dollars, because I got the
+              answers.
+              I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push
+              possibilities,
+              to show people, this is the level that things could be at."
+              <br>
+              <br>
+              <small>
+                - Noaa
+              </small>
+            </p>
+          </blockquote>
+          <!-- <div class="footer text-center"> -->
+            <a class="btn btn-primary btn-round btn-lg btn-block" (click)="getKeywords()">Get Keywords</a>
+          <!-- </div> -->
+          <blockquote>
+            <p class="blockquote blockquote-primary">
+              "I will be the leader of a company that ends up being worth billions of dollars, because I got the
+              answers.
+              I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push
+              possibilities,
+              to show people, this is the level that things could be at."
+              <br>
+              <br>
+              <small>
+                - Noaa
+              </small>
+            </p>
+          </blockquote>
+        </div>
+
+        <!-- </div> -->
+
+        <!-- <mat-grid-list cols="3">
+          <mat-grid-tile>
+            <blockquote>
+              <p class="blockquote blockquote-primary">
+                "I will be the leader of a company that ends up being worth billions of dollars, because I got the
+                answers.
+                I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push
+                possibilities,
+                to show people, this is the level that things could be at."
+                <br>
+                <br>
+                <small>
+                  - Noaa
+                </small>
+              </p>
+            </blockquote>
+          </mat-grid-tile>
+          <mat-grid-tile>2</mat-grid-tile>
+          <mat-grid-tile>
+            <blockquote>
+              <p class="blockquote blockquote-primary">
+                "I will be the leader of a company that ends up being worth billions of dollars, because I got the
+                answers.
+                I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push
+                possibilities,
+                to show people, this is the level that things could be at."
+                <br>
+                <br>
+                <small>
+                  - Noaa
+                </small>
+              </p>
+            </blockquote>
+          </mat-grid-tile>
+        </mat-grid-list> -->
+
       </div>
+    </div>
   </div>
 </div>

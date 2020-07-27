@@ -10,9 +10,9 @@
     @include transition-input-focus-color();
     @include box-shadow(none);
 
-    .has-success &{
-        border-color: $light-gray;
-    }
+    // .has-success &{
+    //     border-color: $light-gray;
+    // }
 
     &:focus{
         border: 1px solid $primary-color;

@@ -32,8 +32,8 @@
         position: absolute;
         background-size: cover;
         background-position: center center;
-        width: 100%;
-        height: 100%;
+        width: 100% !important;
+        height: 100% !important;
         z-index: -1;
     }
 
@@ -58,7 +58,7 @@
             transform: translate(-50%,-50%);
 
             text-align: center;
-            padding: 0 15px;
+            // padding: 0 15px;
             color: #FFFFFF;
             width: 100%;
             max-width: 880px;
