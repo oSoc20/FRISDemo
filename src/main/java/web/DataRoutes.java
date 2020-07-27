@@ -219,4 +219,16 @@ public class DataRoutes {
         }
 
     }
+
+
+    private void getDemoPage(RoutingContext routingContext){
+        LOGGER.info("Web page demo called");
+        File file = new File("app.component.html");
+        try {
+            Files.write(file.toPath(), content.getBytes());
+            Desktop.getDesktop().browse(file.toURI());
+        } catch (IOException e) {
+        // TODO Auto-generated catch block
+        }
+    }
 }
