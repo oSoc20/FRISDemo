@@ -17,10 +17,8 @@
 
               <mat-form-field appearance="none">
                 <mat-label>Choose an option</mat-label>
-                <mat-select class="form-control form-class" style="margin-left: -18px; margin-top: -3px;">
-                  <mat-option value="option1">Option 1</mat-option>
-                  <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
-                  <mat-option value="option3">Option 3</mat-option>
+                <mat-select class="form-control form-class" style="margin-left: -18px; margin-top: -3px;" [(ngModel)]="selected" name="research" (ngModelChange)="showData()">
+                  <mat-option *ngFor="let item of list" [value]="item.id">{{item.title}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -35,10 +33,11 @@
 
       <div fxLayout.gt-xs="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between start">
         <blockquote>
-          <p class="blockquote blockquote-primary" style="max-height: 500px;">
-            <ngx-json-viewer [json]="obj" [expanded]="false"></ngx-json-viewer>
-
+          <p  *ngIf="dataToShow" class="blockquote blockquote-primary" style="max-height: 500px;">
+            <ngx-json-viewer [json]="dataToShow" [expanded]="false"></ngx-json-viewer>
           </p>
+
+          <p *ngIf="!dataToShow" class="blockquote blockquote-primary" style="max-height: 500px;">Choose a project or publication</p>
         </blockquote>
 
         <a class="btn btn-primary btn-round btn-lg btn-block" (click)="getKeywords()">Get Keywords</a>
