@@ -8,6 +8,7 @@ import { FormComponent } from './form/form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared.module';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
     FormsModule,
     ReactiveFormsModule,
     NoopAnimationsModule,
-    NgxJsonViewerModule
+    NgxJsonViewerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
