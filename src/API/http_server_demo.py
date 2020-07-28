@@ -1,5 +1,6 @@
 import json
 from flask import Flask, Response
+from flask_cors import CORS
 
 from flask_restful import request
 import sys
@@ -20,6 +21,7 @@ class MyEncoder(json.JSONEncoder):
 
 # initialization for the API
 app = Flask(__name__)
+CORS(app)
 
 
 def read_json(json_path):
