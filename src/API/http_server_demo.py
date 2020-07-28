@@ -24,25 +24,38 @@ app = Flask(__name__)
 CORS(app)
 
 
+def read_json2(json_path):
+ 
+    with open(json_path) as json_file:
+        data = json.load(json_file)
+
+    return data
+
 def read_json(json_path):
-    json = {}
-    json["publications"]= []
-    json["projects"]= []
+    data = {}
+    data['publications']= []
+    data['projects']= []
     num_lines = sum(1 for line in open(json_path))
     with open(json_path, 'r') as file:
 
         for i in range(0,num_lines):
             line = file.readline()
-            print(line)
+            print(type(line))
+
+            
+
+            
+            line_obj = json.loads(line)
             if "uuid" in line:
                 print("pub ok")
-                json["publications"].append(line)
+                data['publications'].append(line_obj)
+                print(data['publications'])
 
             if "englishKeywords" in line:
                 print("proj ok")
-                json["projects"].append(line)
+                data['projects'].append(line_obj)
 
-    return json
+    return data
 '''
  test route to check whether the server is alive
 '''
@@ -51,11 +64,37 @@ def hello():
     return {'hello': 'world'}, 200
 
 @app.route("/research")
-def helloguy():
+def getResearch():
+
+    json = read_json2('./src/publications.json')
+    return json, 200
+
+@app.route("/research2")
+def getResearch2():
 
     json = read_json('./src/publications.json')
     return json, 200
 
+"""
+@app.route("/research/<research_ID>")
+def getResearchbyID(research_ID):
+
+    research_id = research_ID
+
+    json_path = './src/publications.json'
+
+    data_research = {}
+    num_lines = sum(1 for line in open(json_path))
+    with open(json_path, 'r') as file:
+        print(file)
+        for i in range(0,num_lines):
+            line = file.readline()
+            print(line)
+            if line['uuid'] == research_id:
+                data_research.append(line)
+    
+    return data_research
+"""
 
 '''
  POST route to enrich publication data.
