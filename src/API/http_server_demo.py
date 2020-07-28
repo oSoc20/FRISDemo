@@ -69,32 +69,29 @@ def getResearch():
     json = read_json2('./src/publications.json')
     return json, 200
 
-@app.route("/research2")
-def getResearch2():
 
-    json = read_json('./src/publications.json')
-    return json, 200
 
-"""
-@app.route("/research/<research_ID>")
+@app.route('/research/<research_ID>')
 def getResearchbyID(research_ID):
 
     research_id = research_ID
 
     json_path = './src/publications.json'
 
-    data_research = {}
-    num_lines = sum(1 for line in open(json_path))
-    with open(json_path, 'r') as file:
-        print(file)
-        for i in range(0,num_lines):
-            line = file.readline()
-            print(line)
-            if line['uuid'] == research_id:
-                data_research.append(line)
-    
-    return data_research
-"""
+    json_data = read_json2(json_path)
+
+    research = object
+
+    for record in json_data["publications"]:
+        if record["uuid"] == research_id:
+            return record
+
+    for record in json_data["projects"]:
+        if record["id"] == research_id:
+            research = record
+
+    return research
+
 
 '''
  POST route to enrich publication data.
