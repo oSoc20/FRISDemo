@@ -71,6 +71,7 @@ export class FormComponent implements OnInit {
     if (this.dataToShow.titleNl == null) {
       this.dataToShow.titleNl = "";
     }
+    this.keywordResponse = null;
   }
 
   enrichData() {
