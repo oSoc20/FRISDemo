@@ -4,16 +4,20 @@ import { HttpClient } from '@angular/common/http';
 import { Research } from '../models/research.model';
 import { Project } from '../models/project.model';
 import { Publication } from '../models/publication.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResearchService {
   baseurlDemo = environment.baseurlDemo;
-  baseurlEnricher = environment.baseurlEnricher;
+  baseurlEnricher = environment.baseurl;
+  private jsonURL = 'assets/data.json';
 
-  constructor(
-    private http: HttpClient) {
+  constructor(private http: HttpClient) {
+  }
+  public getResearchFromFile(): Observable<any> {
+    return this.http.get(this.jsonURL);
   }
 
   getResearch(): Promise<Research> {
@@ -32,6 +36,7 @@ export class ResearchService {
           publications.push(publication);
         });
         console.log(projects);
+        console.log(JSON.stringify(new Research(projects, publications)));
         resolve(new Research(projects, publications));
       });
     });

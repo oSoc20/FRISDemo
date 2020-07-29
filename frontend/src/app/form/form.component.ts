@@ -19,7 +19,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
 
-    this.researchService.getResearch().then(result => {
+    this.researchService.getResearchFromFile().subscribe(result => {
       console.log(result);
       this.data = result;
 
@@ -36,6 +36,24 @@ export class FormComponent implements OnInit {
       }
       console.log(this.list);
     });
+
+    // this.researchService.getResearch().then(result => {
+    //   console.log(result);
+    //   this.data = result;
+
+    //   for (let obj of result.projects) {
+    //     if (obj.titleEn != null) {
+    //       this.list.push({ id: obj.uuid, title: obj.titleEn, type: 'project' });
+    //     }
+
+    //   }
+    //   for (const obj of result.publications) {
+    //     if (obj.titleEn != null) {
+    //       this.list.push({ id: obj.uuid, title: obj.titleEn, type: 'publication' });
+    //     }
+    //   }
+    //   console.log(this.list);
+    // });
   }
 
   showData($event) {
