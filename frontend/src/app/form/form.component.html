@@ -32,7 +32,7 @@
 
 
       <div fxLayout.gt-xs="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between start">
-        <blockquote>
+        <blockquote  style="width: 100%;">
           <p  *ngIf="dataToShow" class="blockquote blockquote-primary" style="max-height: 500px;">
             <ngx-json-viewer [json]="dataToShow" [expanded]="false"></ngx-json-viewer>
           </p>
@@ -42,11 +42,12 @@
 
         <a class="btn btn-primary btn-round btn-lg btn-block" (click)="enrichData()">Get Keywords</a>
 
-        <blockquote>
-          <p *ngIf="keywordResponse" class="blockquote blockquote-primary" style="max-height: 500px;">
+        <blockquote style="width: 100%;">
+          <p  *ngIf="keywordResponse" class="blockquote blockquote-primary" style="max-height: 500px;">
             <ngx-json-viewer [json]="keywordResponse" [expanded]="false"></ngx-json-viewer>
           </p>
-          <p *ngIf="!keywordResponse" class="blockquote blockquote-primary" style="max-height: 500px;"> &lt;- Get keywords</p>
+
+          <p *ngIf="!keywordResponse" class="blockquote blockquote-primary" style="max-height: 500px;">Get keywords</p>
         </blockquote>
       </div>
 

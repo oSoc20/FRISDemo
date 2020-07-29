@@ -72,6 +72,19 @@ export class FormComponent implements OnInit {
       dataSelected = this.data.publications.filter(x => x.uuid === this.selected);
       this.dataToShow = new Publication(dataSelected[0].uuid, dataSelected[0].titleEn, dataSelected[0].titleNl, dataSelected[0].keywordsEn, dataSelected[0].keywordsNl, dataSelected[0].abstractEn, dataSelected[0].abstractNl, dataSelected[0].doi);
     }
+    if (this.dataToShow.abstractEn == null) {
+      this.dataToShow.abstractEn = "";
+    }
+    if (this.dataToShow.abstractNl == null) {
+      this.dataToShow.abstractEn = "";
+    }
+
+    if (this.dataToShow.titleEn == null) {
+      this.dataToShow.titleEn = "";
+    }
+    if (this.dataToShow.titleNl == null) {
+      this.dataToShow.titleNl = "";
+    }
     console.log(this.dataToShow)
   }
 
@@ -81,10 +94,12 @@ export class FormComponent implements OnInit {
     if (this.dataToShow instanceof Project) {
       this.researchService.enrichProject(this.dataToShow).subscribe(result => {
         console.log(result);
+        this.keywordResponse = result;
       });
     } else if (this.dataToShow instanceof Publication) {
       this.researchService.enrichPublication(this.dataToShow).subscribe(result => {
         console.log(result);
+        this.keywordResponse = result;
       });
     }
   }
