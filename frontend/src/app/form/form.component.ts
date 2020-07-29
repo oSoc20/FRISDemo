@@ -56,7 +56,7 @@ export class FormComponent implements OnInit {
     // });
   }
 
-  showData($event) {
+  showData() {
     console.log(this.selected);
 
     let obj = this.list.filter(x => x.id === this.selected);
