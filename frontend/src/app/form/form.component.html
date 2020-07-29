@@ -31,13 +31,13 @@
       </div>
 
 
-      <div fxLayout.gt-xs="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between start">
+      <div fxLayout.gt-xs="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between start" style="max-height: 90%">
         <blockquote  style="width: 100%;">
-          <p  *ngIf="dataToShow" class="blockquote blockquote-primary" style="max-height: 500px;">
+          <p  *ngIf="dataToShow" class="blockquote blockquote-primary">
             <ngx-json-viewer [json]="dataToShow" [expanded]="false"></ngx-json-viewer>
           </p>
 
-          <p *ngIf="!dataToShow" class="blockquote blockquote-primary" style="max-height: 500px;">Choose a project or publication</p>
+          <p *ngIf="!dataToShow" class="blockquote blockquote-primary">Choose a project or publication</p>
         </blockquote>
 
         <a class="btn btn-primary btn-round btn-lg btn-block" (click)="enrichData()">Get Keywords</a>
