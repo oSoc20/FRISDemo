@@ -40,22 +40,13 @@
           <p *ngIf="!dataToShow" class="blockquote blockquote-primary" style="max-height: 500px;">Choose a project or publication</p>
         </blockquote>
 
-        <a class="btn btn-primary btn-round btn-lg btn-block" (click)="getKeywords()">Get Keywords</a>
+        <a class="btn btn-primary btn-round btn-lg btn-block" (click)="enrichData()">Get Keywords</a>
 
         <blockquote>
-          <p class="blockquote blockquote-primary" style="max-height: 500px;">
-            <ngx-json-viewer [json]="obj" [expanded]="false"></ngx-json-viewer>
-            <!-- "I will be the leader of a company that ends up being worth billions of dollars, because I got the
-    answers.
-    I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push
-    possibilities,
-    to show people, this is the level that things could be at." -->
-            <!-- <br>
-    <br>
-    <small>
-      - Noaa
-    </small> -->
+          <p *ngIf="keywordResponse" class="blockquote blockquote-primary" style="max-height: 500px;">
+            <ngx-json-viewer [json]="keywordResponse" [expanded]="false"></ngx-json-viewer>
           </p>
+          <p *ngIf="!keywordResponse" class="blockquote blockquote-primary" style="max-height: 500px;"> &lt;- Get keywords</p>
         </blockquote>
       </div>
 
