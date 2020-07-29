@@ -22,6 +22,26 @@ export class ResearchService {
 
   // getResearch(): Promise<Research> {
   //   return new Promise((resolve, reject) => {
+  //     this.http.get('assets/researchs.json').subscribe(result => {
+  //       let projects: Project[] = [];
+  //       let publications: Publication[] = [];
+  //       result.projects.forEach(p => {
+  //         // tslint:disable-next-line: max-line-length
+  //         let project = new Project(p.id, p.title.englishTitle, p.title.dutchTitle, p.englishKeywords, p.dutchKeywords, p.abstract.englishAbstract, p.abstract.dutchAbstract);
+  //         projects.push(project);
+  //       });
+  //       result.publications.forEach(p => {
+  //         let publication = new Publication(p.uuid, p.titleEn, p.titleNl, p.keywordsEn, p.keywordsNl, p.abstractEn, p.abstractNl, p.doi);
+  //         publications.push(publication);
+  //       });
+  //       console.log(JSON.stringify(new Research(projects, publications)))
+  //       resolve(new Research(projects, publications));
+  //     });
+  //   });
+  // }
+
+  // getResearch(): Promise<Research> {
+  //   return new Promise((resolve, reject) => {
   //     this.http.get<any>(this.baseurlDemo + '/research').subscribe(result => {
   //       let projects: Project[] = [];
   //       let publications: Publication[] = [];

@@ -18,7 +18,6 @@ export class FormComponent implements OnInit {
   constructor(private researchService: ResearchService) { }
 
   ngOnInit() {
-
     this.researchService.getResearchFromFile().subscribe(result => {
       this.data = result;
 
@@ -33,20 +32,6 @@ export class FormComponent implements OnInit {
         }
       }
     });
-
-    // this.researchService.getResearch().then(result => {
-    //   this.data = result;
-    //   for (let obj of result.projects) {
-    //     if (obj.titleEn != null) {
-    //       this.list.push({ id: obj.uuid, title: obj.titleEn, type: 'project' });
-    //     }
-    //   }
-    //   for (const obj of result.publications) {
-    //     if (obj.titleEn != null) {
-    //       this.list.push({ id: obj.uuid, title: obj.titleEn, type: 'publication' });
-    //     }
-    //   }
-    // });
   }
 
   showData() {
