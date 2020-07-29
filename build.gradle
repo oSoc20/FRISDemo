@@ -34,5 +34,6 @@ dependencies {
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
     compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.11.1'
 
+    compile 'io.vertx:vertx-core:3.9.2'
 
 }
