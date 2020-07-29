@@ -23,7 +23,6 @@ export class ResearchService {
   // getResearch(): Promise<Research> {
   //   return new Promise((resolve, reject) => {
   //     this.http.get<any>(this.baseurlDemo + '/research').subscribe(result => {
-  //       console.log(result);
   //       let projects: Project[] = [];
   //       let publications: Publication[] = [];
   //       result.projects.forEach(p => {
@@ -35,8 +34,6 @@ export class ResearchService {
   //         let publication = new Publication(p.uuid, p.titleEn, p.titleNl, p.keywordsEn, p.keywordsNl, p.abstractEn, p.abstractNl, p.doi);
   //         publications.push(publication);
   //       });
-  //       console.log(projects);
-  //       console.log(JSON.stringify(new Research(projects, publications)));
   //       resolve(new Research(projects, publications));
   //     });
   //   });
