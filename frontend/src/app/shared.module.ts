@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {  MatFormFieldModule,
   MatInputModule,
-  MatSelectModule
+  MatSelectModule,
+  MatProgressBarModule
   } from '@angular/material';
 
 
@@ -15,13 +16,15 @@ import {  MatFormFieldModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatProgressBarModule
   ],
   exports: [
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatProgressBarModule
   ]
 })
 export class SharedModule { }

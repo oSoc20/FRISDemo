@@ -46,7 +46,7 @@
           <p  *ngIf="keywordResponse" class="blockquote blockquote-primary" style="max-height: 500px;">
             <ngx-json-viewer [json]="keywordResponse" [expanded]="false"></ngx-json-viewer>
           </p>
-
+          <mat-progress-bar *ngIf="loading" mode="indeterminate" style="margin-top: 10px;" color="warn" ></mat-progress-bar>
           <p *ngIf="!keywordResponse" class="blockquote blockquote-primary" style="max-height: 500px;">Get keywords</p>
         </blockquote>
       </div>

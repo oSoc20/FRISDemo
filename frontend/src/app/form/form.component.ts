@@ -15,6 +15,7 @@ export class FormComponent implements OnInit {
   data: Research;
   dataToShow;
   keywordResponse;
+  loading;
   constructor(private researchService: ResearchService) { }
 
   ngOnInit() {
@@ -60,13 +61,16 @@ export class FormComponent implements OnInit {
   }
 
   enrichData() {
+    this.loading=true;
     if (this.dataToShow instanceof Project) {
       this.researchService.enrichProject(this.dataToShow).subscribe(result => {
         this.keywordResponse = result;
+        this.loading=false;
       });
     } else if (this.dataToShow instanceof Publication) {
       this.researchService.enrichPublication(this.dataToShow).subscribe(result => {
         this.keywordResponse = result;
+        this.loading=false;
       });
     }
   }
