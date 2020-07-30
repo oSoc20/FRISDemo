@@ -16,6 +16,7 @@ export class FormComponent implements OnInit {
   dataToShow;
   keywordResponse;
   loading;
+  collapsed:boolean = false;
   constructor(private researchService: ResearchService) { }
 
   ngOnInit() {
@@ -73,5 +74,13 @@ export class FormComponent implements OnInit {
         this.loading=false;
       });
     }
+  }
+  open(){
+    this.collapsed = false;
+    console.log()
+  }
+  collapse() {
+    this.collapsed= true;
+    console.log()
   }
 }

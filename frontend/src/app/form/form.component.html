@@ -3,21 +3,37 @@
 <div class="page-header" filter-color="blue">
   <!-- <div class="page-header-image" style="background-image:url(assets/img/book.jpg); background-size:cover"></div>-->
   <div class="container" style="  margin: auto;">
-    <div class="content">
-      <div class="content-center" style="width: 60%; margin: auto;">
+    <div class="content" style="max-height: 100vh;">
+      <div class="content-center" style="width: 75%; margin: auto;">
         <div class="card card-login card-plain">
 
           <div class="header header-primary text-center">
-            <div class="logo-container">
-              <img src="assets/img/fris.svg" alt="" width="100%">
+            <div class="logo-container" >
+              <div fxLayout="row" fxLayoutGap="10px">
+                <img src="assets/img/fris.svg" alt="" width="55%" class="logos logo-fris">
+                <div class="line"></div>
+                <img src="assets/img/FRISteam-crest.svg" alt="" width="20%" class="logos">
+                <div class="line"></div>
+                <img src="assets/img/logo-osoc-color.svg" alt="" width="20%" class="logos">
+              </div>
             </div>
+          </div>
+          <div class="explanation">
+            <p>This is a demopage for the service we build during 4 weeks at <a href="https://osoc.be">#osoc20</a>. Our service enriches data coming
+              from our client FRIS, which is a search portal for all publicly funded Flemish research (<a href="https://researchportal.be">FRIS portal</a>).</p>
+            <p>When you select a project or a publication in the dropdown, you will see data appear, this is the original
+              data coming from our client FRIS that they want to enrich.</p>
+            <p>When you press the 'get keywords' button. This data will be send through our service, the enriched data will
+              be presented. This enriched data contains keywords that are generated from the project/publications abstracts.
+              The keywords will be used to have a better searching experience on the FRIS portal.</p>
           </div>
           <div>
             <div fxLayout="row" fxLayoutAlign="center center" class="form-group">
 
               <mat-form-field appearance="none">
                 <mat-label>Choose an option</mat-label>
-                <mat-select class="form-control form-class" style="margin-left: -18px; margin-top: -3px;" [(ngModel)]="selected" name="research" (ngModelChange)="showData()">
+                <mat-select class="form-control form-class" style="margin-left: -18px; margin-top: -3px;"
+                  [(ngModel)]="selected" name="research" (ngModelChange)="showData()">
                   <mat-option *ngFor="let item of list" [value]="item.id">{{item.title}}</mat-option>
                 </mat-select>
               </mat-form-field>
@@ -32,8 +48,8 @@
 
 
       <div fxLayout.gt-xs="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between start" style="max-height: 90%">
-        <blockquote  style="width: 100%;">
-          <p  *ngIf="dataToShow" class="blockquote blockquote-primary">
+        <blockquote style="width: 100%;">
+          <p *ngIf="dataToShow" class="blockquote blockquote-primary">
             <ngx-json-viewer [json]="dataToShow" [expanded]="false"></ngx-json-viewer>
           </p>
 
@@ -43,13 +59,14 @@
         <a class="btn btn-primary btn-round btn-lg btn-block" (click)="enrichData()">Get Keywords</a>
 
         <blockquote style="width: 100%;">
-          <p  *ngIf="keywordResponse" class="blockquote blockquote-primary" style="max-height: 500px;">
+          <p *ngIf="keywordResponse" class="blockquote blockquote-primary" style="max-height: 500px;">
             <ngx-json-viewer [json]="keywordResponse" [expanded]="false"></ngx-json-viewer>
           </p>
-          <mat-progress-bar *ngIf="loading" mode="indeterminate" style="margin-top: 10px;" color="warn" ></mat-progress-bar>
+          <mat-progress-bar *ngIf="loading" mode="indeterminate" style="margin-top: 10px;" color="warn">
+          </mat-progress-bar>
           <p *ngIf="!keywordResponse" class="blockquote blockquote-primary" style="max-height: 500px;">Get keywords</p>
         </blockquote>
+        <div style="clear:both ;" ></div>
       </div>
-
     </div>
   </div>
